@@ -13,7 +13,7 @@ const customStyles = {
   },
 };
 
-const plates = ['100', '55', '45', '35', '25', '15', '10', '5', '2.5', '1.25'];
+const plates = { 100: 0, 55: 0, 45: 0, 35: 0, 25: 0, 15: 0, 10: 0, 5: 0, 2.5: 0, 1.25: 0 };
 
 export default class Plates extends Component {
   constructor(props) {
@@ -31,6 +31,10 @@ export default class Plates extends Component {
     this.setState({ open: false })
   }
 
+  savePlates = () => {
+    Object.keys(plates).forEach(key => plates[key] = document.getElementById(String(key)).value)
+  }
+
   render() {
     return <>
       <div>
@@ -44,16 +48,19 @@ export default class Plates extends Component {
         >
           <div>
             <table>
-              {plates.map(
+              {Object.keys(plates).map(
                 (plate) =>
                   <tr>
                     <td>{plate}</td>
-                    <td><input id={'plates' + plate} type='number'></input></td>
+                    <td><input id={plate} type='number' defaultValue={plates[plate]}></input></td>
                   </tr>
               )}
             </table>
           </div>
-          <button onClick={this.closeModal}>Save and Close</button>
+          <button onClick={() => {
+            this.savePlates();
+            this.closeModal();
+          }}>Save and Close</button>
         </Modal>
       </div>
     </>
