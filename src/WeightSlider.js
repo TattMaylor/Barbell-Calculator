@@ -16,8 +16,8 @@ export default class WeightSlider extends Component {
 	}
 	render() {
 		return <>
-		<h2>{this.props.heading}: {this.state.value}</h2>
-      <Slider step='2.5' max={this.props.max} value={this.state.value} onChange={this.setValue.bind(this)}/>
-    </>
+			<h2>{this.props.heading}: {this.state.value}</h2>
+			<Slider step='2.5' max={this.props.max} value={this.state.value} onChange={this.setValue.bind(this)} />
+		</>
 	}
 }

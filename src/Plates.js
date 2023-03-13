@@ -13,8 +13,6 @@ const customStyles = {
   },
 };
 
-const plates = { 100: 0, 55: 0, 45: 0, 35: 0, 25: 0, 15: 0, 10: 0, 5: 0, 2.5: 0, 1.25: 0 };
-
 export default class Plates extends Component {
   constructor(props) {
     super(props);
@@ -32,10 +30,11 @@ export default class Plates extends Component {
   }
 
   savePlates = () => {
-    Object.keys(plates).forEach(key => plates[key] = document.getElementById(String(key)).value)
+    Object.keys(this.props.plates).forEach(key => this.props.plates[key] = document.getElementById(String(key)).value)
   }
 
   render() {
+    Modal.setAppElement('body');
     return <>
       <div>
         <button onClick={(this.openModal)}>Set Plate Count</button>
@@ -48,13 +47,15 @@ export default class Plates extends Component {
         >
           <div>
             <table>
-              {Object.keys(plates).map(
-                (plate) =>
-                  <tr>
-                    <td>{plate}</td>
-                    <td><input id={plate} type='number' defaultValue={plates[plate]}></input></td>
-                  </tr>
-              )}
+              <tbody>
+                {Object.keys(this.props.plates).map(
+                  (plate) =>
+                    <tr key={plate}>
+                      <td>{plate}</td>
+                      <td><input id={plate} type='number' defaultValue={this.props.plates[plate]}></input></td>
+                    </tr>
+                )}
+              </tbody>
             </table>
           </div>
           <button onClick={() => {
